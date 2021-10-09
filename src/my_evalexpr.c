@@ -1,9 +1,10 @@
-#include <stdio.h>
+#include "my_evalexpr.h"
+
 #include <stddef.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-#include "my_evalexpr.h"
 #include "stack.h"
 
 int my_pow(int a, int b)
@@ -28,30 +29,30 @@ int eval(char op, struct stack **s)
     int tmp;
     switch (op)
     {
-        case '+':
-            return stack_pop(s) + stack_pop(s);
-            break;
-        case '*':
-            return stack_pop(s) * stack_pop(s);
-            break;
-        case '-':
-            tmp = stack_pop(s);
-            return stack_pop(s) - tmp;
-            break;
-        case '/':
-            tmp = stack_pop(s);
-            if (!tmp)
-                exit(3);
-            return stack_pop(s) / tmp;
-            break;
-        case '%':
-            tmp = stack_pop(s);
-            if (!tmp)
-                exit(3);
-            return stack_pop(s) % tmp;
-        case '^':
-            return my_pow(stack_pop(s), stack_pop(s));
-            break;
+    case '+':
+        return stack_pop(s) + stack_pop(s);
+        break;
+    case '*':
+        return stack_pop(s) * stack_pop(s);
+        break;
+    case '-':
+        tmp = stack_pop(s);
+        return stack_pop(s) - tmp;
+        break;
+    case '/':
+        tmp = stack_pop(s);
+        if (!tmp)
+            exit(3);
+        return stack_pop(s) / tmp;
+        break;
+    case '%':
+        tmp = stack_pop(s);
+        if (!tmp)
+            exit(3);
+        return stack_pop(s) % tmp;
+    case '^':
+        return my_pow(stack_pop(s), stack_pop(s));
+        break;
     }
     return 0;
 }
@@ -60,17 +61,17 @@ size_t operand(char op)
 {
     switch (op)
     {
-        case '+':
-        case '*':
-        case '-':
-        case '/':
-        case '^':
-        case '%':
-        case '(':
-        case ')':
-            return 1;
-        default :
-           exit(1);
+    case '+':
+    case '*':
+    case '-':
+    case '/':
+    case '^':
+    case '%':
+    case '(':
+    case ')':
+        return 1;
+    default:
+        exit(1);
     }
 }
 
@@ -92,12 +93,12 @@ int rpn(char *exp)
     while (token != NULL)
     {
         size_t op;
-        if (check(token)) //valid number
+        if (check(token)) // valid number
         {
             tmp = atoi(token);
             stack_push(&s, tmp);
         }
-        else //operand
+        else // operand
         {
             size_t l = strlen(token) - 1;
             if (l > 1)
