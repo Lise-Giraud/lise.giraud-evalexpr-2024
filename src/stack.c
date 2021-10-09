@@ -17,8 +17,8 @@ void stack_push(struct stack **s, int e)
 
 int stack_pop(struct stack **s)
 {
-    if (!s)
-        exit(4);
+    if (!*s)
+        exit(2);
     struct stack *new = *s;
     int value = new->data;
     *s = new->next;

@@ -1,4 +1,3 @@
-#define _XOPEN_SOURCE 700
 #include <stdio.h>
 #include <stddef.h>
 #include <stdlib.h>
@@ -71,7 +70,7 @@ size_t operand(char op)
         case ')':
             return 1;
         default :
-            exit(2);
+           exit(1);
     }
 }
 
@@ -114,28 +113,5 @@ int rpn(char *exp)
         exit(2);
     printf("%d\n", s->data);
     free(s);
-    return 0;
-}
-
-
-int main(int argc, char *argv[])
-{
-    if (argc < 1)
-        exit(0);
-    if (argc > 1 && strcmp(argv[1], "-rpn") != 0)
-        exit(4);
-    if (argc == 2 && !strcmp(argv[1], "-rpn"))
-    {
-        char *lineptr = malloc(sizeof(char));
-        if (!lineptr)
-            exit(4);
-        size_t n = 1;
-        ssize_t line = getline(&lineptr, &n, stdin);
-        if (line == -1)
-            return 4;
-        int res = rpn(lineptr);
-        free(lineptr);
-        return res;
-    }
     return 0;
 }
