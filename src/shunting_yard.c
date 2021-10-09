@@ -1,10 +1,8 @@
+#include "shunting_yard.h"
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
-#include "fifo.h"
-#include "my_evalexpr.h"
-#include "stack.h"
 
 int precedence(char a, struct stack **s) // return 1 if a's precedence is
                                          // greater
@@ -51,16 +49,14 @@ int parse(struct queue *q)
     if (!s)
         exit(2);
     printf("%d\n", s->data);
-    free(s);
-
     return 0;
 }
 
-void infix(char *exp, size_t n)
+int infix(char *exp, size_t n)
 {
     struct stack *s = NULL;
     struct queue *q = createQueue(n);
-    char *token = strtok(exp, " ");
+    char *token = strtok(exp, " \t\n\v\f\r");
     size_t i = 0;
     while (token != NULL)
     {
@@ -83,18 +79,12 @@ void infix(char *exp, size_t n)
             stack_push(&s, *token);
         }
         i++;
-        token = strtok(NULL, " ");
+        token = strtok(NULL, " \t\n\v\f\r");
     }
     while (s)
         enqueue(q, stack_pop(&s), 1);
     parse(q);
     free(q);
     free(s);
-}
-
-int main(void)
-{
-    char exp[] = "1 + 2";
-    infix(exp, 6);
     return 0;
 }
