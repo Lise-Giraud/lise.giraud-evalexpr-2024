@@ -13,6 +13,10 @@ evalexpr: $(OBJ)
 check:
 	$(CC) $(DBFLAGS) $(LDFLAGS) src/my_evalexpr.c src/stack.c tests/*.c -o $(BINARY)
 	./$(BINARY) --verbose
+	$(MAKE) clean
+	$(MAKE) evalexpr
+	./tests/tests.sh
+
 clean :
 	rm -rf src/*.o
 	rm -rf $(BINARY)
