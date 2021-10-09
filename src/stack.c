@@ -15,35 +15,6 @@ void stack_push(struct stack **s, int e)
     *s = first;
 }
 
-/*void push( struct stack **head, int value )
-{
-	struct stack* node = malloc( sizeof(struct stack) );
-
-	if( node == NULL ) {
-		exit(4);
-	} else {
-		node->data = value;
-		node->next = *head;
-		*head = node;
-        head->size++;
-	}
-}*/
-
-
-/*int pop( stack **head )
-{
-	if( *head == NULL ) {
-		exit(4);
-	} else {
-		stack* top = *head;
-		int value = top->data;
-		*head = top->next;
-		free( top );
-        head->size--;
-		return value;
-	}
-}*/
-
 int stack_pop(struct stack **s)
 {
     if (!s)
